@@ -61,6 +61,7 @@ import {LOGED} from '../../type/index.js'
                 }
                 this.UploadArr.push(UserInfo)
                 console.log(this.UploadArr)
+                console.log("hello")
                 })
               })
             });
