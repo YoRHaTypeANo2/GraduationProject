@@ -34,6 +34,18 @@ export default {
       // isShow:true
     }
   },
+  mounted(){
+    // 加载本地用户数据
+    let UserInfo = localStorage.getItem('UserInfo')
+    if(UserInfo){
+      let InfoArr = UserInfo.split(',')
+      // 加载至vuex
+      this.$store.commit('GetUserInfo',InfoArr)
+      console.log("加载本地缓存用户数据")
+    }else{
+      console.log("本地无用户数据")
+    }
+  },
   // computed:{
   //   isShow(){
   //     return this.$store.state.isTabbarShow;

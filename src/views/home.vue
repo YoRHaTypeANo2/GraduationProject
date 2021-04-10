@@ -45,6 +45,7 @@
     if(!id){
       this.GetLoc()
     }else{
+      this.cityname = name;
       axios({
       url:`https://m.maizuo.com/gateway?cityId=${id}&ticketFlag=1&k=4449341`,
       headers:{
@@ -68,7 +69,6 @@
     this.count2 = this.$store.state.ShoppingList[1].TicketCount
     this.count3 = this.$store.state.ShoppingList[2].TicketCount
     this.mystyle = document.documentElement.clientHeight-60 +'px';
-    this.cityname = name;
     console.log("看看",this.$store.state.ShoppingList)
   },
   methods:{

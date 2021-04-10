@@ -40,6 +40,7 @@
       }
     },
     beforeDestroy(){
+      // 离开页面前保存购物车状态
       this.$store.commit('UploadSelect',this.checked)
     }
 

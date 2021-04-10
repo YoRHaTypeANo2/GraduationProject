@@ -13,7 +13,7 @@ export default new Vuex.Store({
     islog:false,
     ShoppingList:[],
     ShoppingSelect:[],
-    UserInfo:{}
+    AllUserInfo:[]
   },
   getters:{
     comingListGetter(state){
@@ -83,6 +83,7 @@ export default new Vuex.Store({
         }
       }
     },
+    // 记住用户购物车数据
     UploadSelect(state,data){
       state.ShoppingSelect = data
     },
@@ -95,6 +96,7 @@ export default new Vuex.Store({
          CinemaName:data.name,
          TicketCount:data.count,
        }
+      //  对购物车遍历寻找指定删除的内容
        for(let i = 0; i < SLobj.length; i++){
         if(Addobj.CinemaName === SLobj[i].CinemaName){
           state.ShoppingList[i].TicketCount--
@@ -103,7 +105,22 @@ export default new Vuex.Store({
           console.log("商品数量-1")
         }
       }
-
+    },
+    // 初始化获取LoalStorage内的账号数据
+    GetUserInfo(state,data){
+      let LocalInfo = []
+      for(let i = 0; i < data.length; i = i + 2){
+        let SingleInfo = {
+          UserAccount:data[i],
+          UserPassword:data[i+1]
+        }
+        LocalInfo.push(SingleInfo)
+      }
+      state.AllUserInfo = LocalInfo
+    },
+    // 上传用户创建的账号到AllUserInfo
+    UpLoadAccount(state,data){
+      state.AllUserInfo.push(data)
     }
   },
   actions: {
