@@ -9,11 +9,11 @@
     <div class="fixhlep" v-if="!IsFixed"></div>
       <div :class="IsFixed?'film-header':'fixed'">
           <router-link to="/film/now-playing" tag="button" active-class="myactive">
-              <i class="iconfont icon-hot"></i>
+              <i class="el-icon-video-play"></i>
                 now-playing
           </router-link>
           <router-link to="/film/coming-soon" tag="button" active-class="myactive">
-        <i class="iconfont icon-clock"></i>
+        <i class="el-icon-date"></i>
                 coming-soon
           </router-link>
       </div>
@@ -58,7 +58,6 @@ export default{
 </script>
 
 <style scoped>
-  @import url("../assets/iconfont/iconfont.css");
   *{
     padding: 0;
     margin: 0;

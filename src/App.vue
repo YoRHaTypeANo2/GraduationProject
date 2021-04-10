@@ -5,16 +5,16 @@
     <div id="tabbar"  v-show="isTabbarShow">
     <ul>
     <router-link to="/home" tag="button" active-class="myactive">
-      <i class="iconfont icon-all"></i>
+      <i class="el-icon-s-shop"></i>
       home</router-link>
     <router-link to="/film" tag="button" active-class="myactive">
-      <i class="iconfont icon-video"></i>
+      <i class="el-icon-video-camera-solid"></i>
       film</router-link>
     <router-link to="/shoppingcar" tag="button" active-class="myactive">
-      <i class="iconfont icon-creditlevelfilling"></i>
+      <i class="el-icon-s-goods"></i>
       card</router-link>
     <router-link to="/center" tag="button" active-class="myactive">
-      <i class="iconfont icon-smile"></i>
+      <i class="el-icon-user-solid"></i>
       center</router-link>
     </ul>
     </div>
@@ -71,7 +71,6 @@ export default {
 </script>
 
 <style scoped>
-  @import url("./assets/iconfont/iconfont.css");
 *{
   margin: 0px;
   padding: 0px;

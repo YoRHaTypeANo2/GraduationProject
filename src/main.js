@@ -3,7 +3,6 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-// import iconfont from './assets/iconfont/iconfont.js'
 import store from './store'
 import elementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
