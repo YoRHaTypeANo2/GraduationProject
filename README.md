@@ -1,6 +1,7 @@
 # daq的毕设demo
 
-> A Vue.js project
+> working...
+> 完成度85%
 
 ## Build Setup
 
