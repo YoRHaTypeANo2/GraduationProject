@@ -109,11 +109,15 @@ ul li,button{
 }
 </style>
 
-// 针对移动端elementUI的适应样式
 <style>
+/* 对于移动端UI的适配 */
 @media screen and (max-width: 750px) {
   .el-message-box {
     width: 60% !important;
+    position: fixed;
+    top: 30%;
+    left: 20%;
+    z-index: 9999;
   }
 }
 </style>

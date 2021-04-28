@@ -8,8 +8,12 @@ export default new Vuex.Store({
   state:{
     // 自定义的共享状态存放于此
     isTabbarShow:true,
-    comingList:[],
+    Nowtotal:0,
+    Comingtotal:0,
+    NowCurrent:0,
+    ComingCurrent:0,
     nowplayList:[],
+    comingList:[],
     islog:false,
     ShoppingList:[],
     ShoppingSelect:[],
@@ -38,7 +42,11 @@ export default new Vuex.Store({
     [UNLOG](state,data){
       state.islog = data
     },
-    // comingsoon接口拉过来的数据通过这个方法给comingList
+    // 给nowplayList存数据
+    nowplayListMutation(state,data){
+      state.nowplayList = data
+    },
+    // 给comingList存数据
     comingListMutation(state,data){
       state.comingList = data
     },
@@ -79,7 +87,7 @@ export default new Vuex.Store({
             state.ShoppingList.push(Addobj)
             console.log("商品不存在购物车内，添加商品")
             // 关闭通道
-            this.AddNew = false;
+            this.AddNew = false
         }
       }
     },
@@ -125,18 +133,18 @@ export default new Vuex.Store({
   },
   actions: {
       // 这里做异步处理
-      getComingListAction(store){
-        axios({
-          url:"https://m.maizuo.com/gateway?cityId=110100&pageNum=1&pageSize=10&type=2&k=6283675",
-          headers:{
-            'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"160085152071987946848257","bc":"110100"}',
-            'X-Host': 'mall.film-ticket.film.list'
-          }
-        }).then(res=>{
-          // console.log(res.data.data.films);
-          store.commit("comingListMutation",res.data.data.films);
-        })
-      },
+      // getComingListAction(store){
+      //   axios({
+      //     url:"https://m.maizuo.com/gateway?cityId=110100&pageNum=1&pageSize=10&type=2&k=6283675",
+      //     headers:{
+      //       'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"160085152071987946848257","bc":"110100"}',
+      //       'X-Host': 'mall.film-ticket.film.list'
+      //     }
+      //   }).then(res=>{
+      //     // console.log(res.data.data.films);
+      //     store.commit("comingListMutation",res.data.data.films);
+      //   })
+      // },
 
   //     不标准的异步函数
   //     getCurrentCityName(){

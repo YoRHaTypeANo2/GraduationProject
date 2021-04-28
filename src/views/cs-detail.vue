@@ -12,7 +12,7 @@
    <div class="DSwiper" >
           <swiper>
            <div  class="swiper-slide" v-for="data in datalist" :key="data.index">
-           <img  class="avatarimg":src="data.avatarAddress" />
+           <img  class="avatarimg" :src="data.avatarAddress" />
            <p class="ActorName">{{data.name}}</p>
            <p class="ActorRole">{{data.role}}</p>
            </div>

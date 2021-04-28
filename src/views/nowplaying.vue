@@ -1,15 +1,24 @@
 <template>
   <div class="nowplayingbox">
+    <el-backtop 
+    target=".nowplayingbox"
+    :right='40'
+　　 :bottom='100'
+    >
+      <i class="el-icon-caret-top"></i>
+    </el-backtop>
     <ul v-infinite-scroll="loadMore"
       infinite-scroll-disabled="loading"
      infinite-scroll-distance="0"
      infinite-scroll-immediate-check = false>
-      <li v-for="data in datalist" :key="data.filmId"  @click="handleClick(data.filmId,data.name,data.nation,data.category,data.synopsis,data.poster,data.actors)">
-        <img :src="data.poster" />
+      <li v-for="data in datalist" :key="data.index">
+        <img :src="data.poster" @click="handleClick(data.filmId,data.name,data.nation,data.category,data.synopsis,data.poster,data.actors)"/>
         <h3>{{data.name}}</h3>
         <p class="grade" v-if="data.grade">观众评分:{{data.grade}}</p>
         <p v-else class="grade2">暂无评分</p>
         <p class="actor">主演:{{data.actors | actorfilter}}</p>
+        <el-button v-if="!data.isbuy"  type="primary" class="buybutton" size="mini" @click="buyTicket(data.index)" round>购票</el-button>
+        <el-input-number v-if="data.isbuy" v-model="num[data.index]" class="inputNum"  @change="handleChange(data.index)" :min="1" :max="10" label="描述文字"></el-input-number>
       </li>
     </ul>
     <br/><br/><br/>
@@ -35,21 +44,51 @@
       loading:false,
       current:1,
       total:0,
+      num:[],
     };
   },
 
   mounted(){
-    axios({
-      url:"https://m.maizuo.com/gateway?cityId=440300&pageNum=1&pageSize=10&type=1&k=2513751",
-      headers:{
-        'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"160085152071987946848257"}',
-        'X-Host': 'mall.film-ticket.film.list'
+    // // 默认num先设置1，定死50个
+    // for(let i = 0; i < 50; i++){
+    //   this.num[i] = 1
+    // }
+    if(this.$store.state.nowplayList.length === 0){
+      console.log("重新获取数据")
+      axios({
+        url:"https://m.maizuo.com/gateway?cityId=440300&pageNum=1&pageSize=10&type=1&k=3831972",
+        headers:{
+          'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"160085152071987946848257"}',
+          'X-Host': 'mall.film-ticket.film.list'
+        }
+      }).then(res=>{
+        console.log(res.data.data.films);
+        this.total = res.data.data.total;
+        this.datalist = res.data.data.films;
+        console.log(res.data.data.total)
+        // 增加一个数据Index和isbuy
+        for(let i = 0; i < this.datalist.length; i++){
+          this.datalist[i].index = i;
+          this.datalist[i].isbuy = false;
+          this.datalist[i].buynum = 1;
       }
-    }).then(res=>{
-      console.log(res.data.data.films);
-    this.datalist = res.data.data.films;
-    })
+      })
+    }else{
+      console.log("读取缓存数据");
+      this.datalist = this.$store.state.nowplayList;
+      this.total =  this.$store.state.Nowtotal;
+      this.current = this.$store.state.NowCurrent;
+    }
+    // 根据total定义数据的indexlength
+    for(let i = 0; i < this.total; i++){
+      this.num[i] = 1
+    }
 
+  },
+  beforeDestroy(){
+    this.$store.commit("nowplayListMutation",this.datalist);
+    this.$store.state.Nowtotal = this.total;
+    this.$store.state.NowCurrent = this.current;
   },
   methods:{
     handleClick(id,name,nation,category,synopsis,poster,actors){
@@ -60,7 +99,7 @@
     loadMore(){
       this.loading = true;
       this.current ++ ;
-      let  thisCurrent  = this.current;
+      let thisCurrent = this.current;
       if(this.datalist.length === this.total){
       console.log("到底了")
         return;
@@ -74,18 +113,34 @@
       // let Url = `https://m.maizuo.com/gateway?cityId=110100&pageNum=${thisCurrent}&pageSize=10&type=1&k=2446725`
       // let Url = "'https://m.maizuo.com/gateway?cityId=110100&pageNum='+thisCurrent+'&pageSize=10&type=1&k=2446725'"
       axios({
-        url:`https://m.maizuo.com/gateway?cityId=110100&pageNum=${thisCurrent}&pageSize=10&type=1&k=2446725`,
+        url:`https://m.maizuo.com/gateway?cityId=440300&pageNum=${thisCurrent}&pageSize=10&type=1&k=3831972`,
         headers:{
           'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"160085152071987946848257"}',
           'X-Host': 'mall.film-ticket.film.list'
         }
       }).then(res=>{
-        console.log(res.data.data.films);
-      this.datalist = [...this.datalist,...res.data.data.films];
+        let beforelenth = this.datalist.length;
+        let newlength = this.datalist.length + res.data.data.films.length;
+        let addlist = res.data.data.films;
+        this.datalist = [...this.datalist,...addlist];
+        for(let i = beforelenth; i < newlength; i++){
+          this.datalist[i].index = i;
+          this.datalist[i].isbuy = false;
+          this.datalist[i].buynum = 1;
+        }
+      console.log(this.datalist)
       this.loading = false;
-      this.total = res.data.data.total;
       Indicator.close();
       })
+    },
+    handleChange(index){
+      this.datalist[index].buynum = this.num[index];
+      console.log(this.datalist)
+    },
+    buyTicket(index){
+      this.datalist[index].isbuy = true;
+      // 修改后强制更新组件
+      this.$forceUpdate();
     }
 
   }
@@ -111,7 +166,17 @@ ul li{
 .actor{
   font-size: 12px;
 }
-/* .nowplayingbox{
-
-} */
+.buybutton{
+  float: right;
+  margin-top: 50px;
+  margin-right: 10px;
+}
+.inputNum{
+  float: right;
+  margin-top: 38px;
+}
+.nowplayingbox{
+  height: 100%;
+  overflow: hidden;
+}
 </style>

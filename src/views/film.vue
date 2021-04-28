@@ -7,7 +7,8 @@
         </swiper>
     </div>
     <div class="fixhlep" v-if="!IsFixed"></div>
-      <div :class="IsFixed?'film-header':'fixed'">
+      <el-button :class="IsFixed? 'film-headerInv':'fixed'" type="primary">回到顶部</el-button>
+      <div class='film-header'>
           <router-link to="/film/now-playing" tag="button" active-class="myactive">
               <i class="el-icon-video-play"></i>
                 now-playing
@@ -65,16 +66,19 @@ export default{
   .film-header{
     display: flex;
   }
+  .film-headerInv{
+    display: none;
+  }
   .fixhlep{
     display: flex;
     height: 40px;
   }
   .fixed{
-    display: flex;
     position: fixed;
+    text-align: center !important;
+    background-color: #409EFF;
     top: 0px;
     width: 100%;
-    background: transparent;
     animation: fadein 2s;
   }
   button{

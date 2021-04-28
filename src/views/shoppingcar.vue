@@ -3,7 +3,7 @@
     <h1 class="ShoppingCarTitle">购物车</h1>
     <div class="ShoppingCarContainer">
         <div v-for="data in datalist" :key="data.CinemaName">
-          <el-checkbox v-model="checked[data.Id]" border>
+          <el-checkbox class="shoppingCarSingal" v-model="checked[data.Id]" checked="true" border>
           <div>Name:{{data.CinemaName}}</div>
           <div>Count:{{data.TicketCount}}</div>
           <div>Id:{{data.Id}}</div>
@@ -59,8 +59,8 @@
   position: relative;
   overflow: hidden;
 }
-.el-checkbox{
-  height: 100px;
+.shoppingCarSingal {
+  height: 100px !important;
   width: 100%
-}
+  }
 </style>

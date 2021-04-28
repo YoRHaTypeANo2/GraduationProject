@@ -90,8 +90,8 @@ import {LOGED} from '../../type/index.js'
                   }
                 }).then(() => {
                   if(IsSetAccount){
-                  this.$prompt('请设置密码',{
-                    confirmButtonText: '完成注册',
+                    this.$prompt('请设置密码',{
+                      confirmButtonText: '完成注册',
                     }).then(({ value }) => {
                       if(!value){
                         this.$message({

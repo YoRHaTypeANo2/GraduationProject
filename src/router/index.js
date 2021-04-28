@@ -13,33 +13,34 @@ import City from '@/views/city'
 
 Vue.use(Router)
 export default new Router({
-  mode:"history",
+  // mode:"history",
   routes: [
     {
       path: "/home",
-      component:Home,
-      name:"home",
+      component: resovle =>require(['@/views/home'], resovle),
+      name:"home"
     },
     {
       path: "/center",
-      component:Center,
+      component: resovle =>require(['@/views/center'], resovle),
       name:"center"
     },
     {
       path: "/login",
-      component:Login
+      component: resovle =>require(['@/views/login'], resovle),
+      name:"login"
     },
     {
       path: "/film",
-      component: Film,
+      component: resovle =>require(['@/views/film'], resovle),
       children:[
         {
         path: "now-playing",
-        component:NowPlaying
+        component: resovle =>require(['@/views/nowplaying'], resovle),
       },
       {
        path: "coming-soon",
-        component:ComingSoon
+       component: resovle =>require(['@/views/comingsoon'], resovle),
       },
       {
        path:"/film",
@@ -49,10 +50,10 @@ export default new Router({
     },
     {
       path: "/shoppingcar",
-      component:ShoppingCar
+      component: resovle =>require(['@/views/shoppingcar'], resovle),
     }, {
       path: "/city",
-      component:City,
+      component: resovle =>require(['@/views/city'], resovle),
        name:'city'
     },
     {
