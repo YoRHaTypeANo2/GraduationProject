@@ -17,7 +17,7 @@
     </div>
     <br/><br/><br/>
     <div class="TotalCount">
-      <el-checkbox v-model="checked" class="AllSelect" @change="AllSelect(checked)">全选</el-checkbox>
+      <el-checkbox v-if="ShowAllSelect" v-model="checked" class="AllSelect" @change="AllSelect(checked)">全选</el-checkbox>
       <p class="CountPrice">合计:{{TotalCount}}</p>
     </div>
   </div>
@@ -34,6 +34,7 @@
         checked:true,
         num:[],
         TotalCount:0,
+        ShowAllSelect:false,
       }
     },
     mounted(){
@@ -111,6 +112,11 @@
             newindex++;
           }
         }
+        if(this.datalist.length === 0){
+          this.ShowAllSelect = false;
+        }else{
+          this.ShowAllSelect = true;
+        }
       },
       AllSelect(param){
         for(let i = 0; i < this.checkList.length; i++){
@@ -186,7 +192,14 @@ ul li{
   height: 50px;
   background-color: gray;
 }
+.AllSelect{
+  margin-left: 20px;
+  margin-top: 15px;
+}
+
+
 .CountPrice{
   float: right;
+  line-height: 50px;
 }
 </style>
