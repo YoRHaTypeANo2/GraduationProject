@@ -7,7 +7,6 @@
       </div>
     </mt-index-section>
   </mt-index-list>
-  <br/><br/><br/>
   </div>
 </template>
 

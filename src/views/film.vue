@@ -1,5 +1,5 @@
 <template>
-  <div class="filmContainer">
+  <div class="filmContainer" id="filmContainer">
     <div class="roll">
         <swiper ref="myswiper" class="swiper">
             <div  class="swiper-slide" v-for="data in datalist" :key="data">{{data}}
@@ -7,7 +7,7 @@
         </swiper>
     </div>
     <div class="fixhlep" v-if="!IsFixed"></div>
-      <el-button :class="IsFixed? 'film-headerInv':'fixed'" type="primary">回到顶部</el-button>
+      <el-button :class="IsFixed? 'film-headerInv':'fixed'" type="primary" @click="backTop">回到顶部</el-button>
       <div class='film-header'>
           <router-link to="/film/now-playing" tag="button" active-class="myactive">
               <i class="el-icon-video-play"></i>
@@ -45,7 +45,7 @@ export default{
      },
      methods:{
        handleScroll(){
-         // console.log(document.documentElement.scrollTop,this.$refs.myswiper.$el.offsetHeight)
+        //  console.log(document.documentElement.scrollTop,this.$refs.myswiper.$el.offsetHeight)
          if(document.documentElement.scrollTop - 48 >= this.$refs.myswiper.$el.offsetHeight){
             // console.log("住手！！");
             this.IsFixed = false;
@@ -53,6 +53,17 @@ export default{
            // console.log("冲冲冲");
            this.IsFixed = true;
          }
+       },
+      //  返回顶部
+       backTop(){
+        let timer = setInterval(() => {
+          document.documentElement.scrollTop -= 60;
+          if (document.documentElement.scrollTop < 10) {
+            clearInterval(timer);
+          }
+        }, 5)
+        //  document.getElementById("filmContainer").scrollIntoView();
+        // document.documentElement.scrollTop = 400
        }
      }
 };
@@ -74,8 +85,9 @@ export default{
     height: 40px;
   }
   .fixed{
+    z-index: 100;
     position: fixed;
-    text-align: center !important;
+    text-align: center;
     background-color: #409EFF;
     top: 0px;
     width: 100%;

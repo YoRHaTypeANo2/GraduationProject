@@ -3,16 +3,11 @@
     <h2 class="cinemas"><router-link to="/city">{{cityname}}</router-link>影院</h2>
     <div class="cinema"  :style="mystyle">
       <el-button type="info" center=true v-if="UnLoc" @click="SelectCity()">未定位城市，请先选择</el-button> 
-      <el-button type="info" center=true v-if="UnLoc" @click="SelectCity2()">+new1----{{count1}}</el-button> 
-      <el-button type="info" center=true v-if="UnLoc" @click="SelectCity3()">+new2----{{count2}}</el-button>
-      <el-button type="info" center=true v-if="UnLoc" @click="SelectCity33()">+new3----{{count3}}</el-button>
-      <el-button type="info" center=true v-if="UnLoc" @click="SelectCity4()">-new1----{{count1}}</el-button>
-      <el-button type="info" center=true v-if="UnLoc" @click="SelectCity5()">-new2----{{count2}}</el-button>
       <ul v-if="datalist">
         <li  v-for="data in datalist" :key="data.cinemaId">
           <p style="font-size: 20px;">{{data.name}}</p>
-          <p style="font-size: 20px;">{{data.phone}}</p>
-          <p style="font-size: 15px;">{{data.address}}</p>
+          <p style="font-size: 20px;">联系电话：{{data.phone? data.phone:'暂无'}}</p>
+          <p style="font-size: 15px;">地址：{{data.address}}</p>
         </li>
       </ul>
     </div>
@@ -65,11 +60,6 @@
       })
     })
     }
-    this.count1 = this.$store.state.ShoppingList[0].TicketCount
-    this.count2 = this.$store.state.ShoppingList[1].TicketCount
-    this.count3 = this.$store.state.ShoppingList[2].TicketCount
-    this.mystyle = document.documentElement.clientHeight-60 +'px';
-    console.log("看看",this.$store.state.ShoppingList)
   },
   methods:{
     GetLoc: async function() {
@@ -131,65 +121,6 @@
         }
       })
     },
-    SelectCity(){
-      this.$router.push('/city')
-      this.UnLoc = false
-    },
-    SelectCity2(){
-      let ADOBJ = {
-        name:'a',
-        count:1,
-        price:20
-      }
-      this.$store.commit('ShoppingListAdd',ADOBJ)
-      this.count1 = this.$store.state.ShoppingList[0].TicketCount
-      this.count2 = this.$store.state.ShoppingList[1].TicketCount
-      this.count3 = this.$store.state.ShoppingList[2].TicketCount
-    },
-    SelectCity3(){
-      let ADOBJ = {
-        name:'b',
-        count:1,
-        price:24
-      }
-      this.$store.commit('ShoppingListAdd',ADOBJ)
-      this.count1 = this.$store.state.ShoppingList[0].TicketCount
-      this.count2 = this.$store.state.ShoppingList[1].TicketCount
-      this.count3 = this.$store.state.ShoppingList[2].TicketCount
-    },
-    SelectCity33(){
-      let ADOBJ = {
-        name:'c',
-        count:1,
-        price:24
-      }
-      this.$store.commit('ShoppingListAdd',ADOBJ)
-      this.count1 = this.$store.state.ShoppingList[0].TicketCount
-      this.count2 = this.$store.state.ShoppingList[1].TicketCount
-      this.count3 = this.$store.state.ShoppingList[2].TicketCount
-    },
-    SelectCity4(){
-      let DLOBJ = {
-        name:'a',
-        count:1,
-        price:20
-      }
-      this.$store.commit('ShoppingListDel',DLOBJ)
-      this.count1 = this.$store.state.ShoppingList[0].TicketCount
-      this.count2 = this.$store.state.ShoppingList[1].TicketCount
-      this.count3 = this.$store.state.ShoppingList[2].TicketCount
-    },
-    SelectCity5(){
-      let DLOBJ = {
-        name:'b',
-        count:1,
-        price:24
-      }
-      this.$store.commit('ShoppingListDel',DLOBJ)
-      this.count1 = this.$store.state.ShoppingList[0].TicketCount
-      this.count2 = this.$store.state.ShoppingList[1].TicketCount
-      this.count3 = this.$store.state.ShoppingList[2].TicketCount
-    }
   }
 };
 </script>
@@ -210,6 +141,9 @@
 .cinema{
   /* overflow: hidden; */
   position: relative;
+}
+ul{
+  padding-bottom: 60px;
 }
 ul li{
   padding: 20px;

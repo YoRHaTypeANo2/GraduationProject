@@ -1,12 +1,5 @@
 <template>
   <div class="nowplayingbox">
-    <el-backtop 
-    target=".nowplayingbox"
-    :right='40'
-　　 :bottom='100'
-    >
-      <i class="el-icon-caret-top"></i>
-    </el-backtop>
     <ul v-infinite-scroll="loadMore"
       infinite-scroll-disabled="loading"
      infinite-scroll-distance="0"
@@ -17,8 +10,9 @@
         <p class="grade" v-if="data.grade">观众评分:{{data.grade}}</p>
         <p v-else class="grade2">暂无评分</p>
         <p class="actor">主演:{{data.actors | actorfilter}}</p>
+        <p class="actor">价格:{{data.price}}</p>
         <el-button v-if="!data.isbuy"  type="primary" class="buybutton" size="mini" @click="buyTicket(data.index)" round>购票</el-button>
-        <el-input-number v-if="data.isbuy" v-model="num[data.index]" class="inputNum"  @change="handleChange(data.index)" :min="1" :max="10" label="描述文字"></el-input-number>
+        <el-input-number v-if="data.isbuy" v-model="num[data.index]" class="inputNum"  @change="handleChange(data.index)" :min="0" :max="50"></el-input-number>
       </li>
     </ul>
     <br/><br/><br/>
@@ -49,10 +43,6 @@
   },
 
   mounted(){
-    // // 默认num先设置1，定死50个
-    // for(let i = 0; i < 50; i++){
-    //   this.num[i] = 1
-    // }
     if(this.$store.state.nowplayList.length === 0){
       console.log("重新获取数据")
       axios({
@@ -71,24 +61,39 @@
           this.datalist[i].index = i;
           this.datalist[i].isbuy = false;
           this.datalist[i].buynum = 1;
-      }
+          // 随机生成票价
+          this.datalist[i].price = Math.floor(Math.random()*10 + 25);
+          this.datalist[i].isSelect = true;
+        }
+        for(let i = 0; i < this.total; i++){
+          this.num[i] = 1
+        }
       })
     }else{
       console.log("读取缓存数据");
       this.datalist = this.$store.state.nowplayList;
       this.total =  this.$store.state.Nowtotal;
       this.current = this.$store.state.NowCurrent;
+      // 根据total定义数据的indexlength
+      for(let i = 0; i < this.datalist.length; i++){
+        this.num[i] = this.datalist[i].buynum;
+      }
     }
-    // 根据total定义数据的indexlength
-    for(let i = 0; i < this.total; i++){
-      this.num[i] = 1
-    }
-
   },
   beforeDestroy(){
+    let ShoppingList = [];
+    for(let i = 0; i < this.datalist.length; i++){
+      if(this.datalist[i].isbuy === true){
+        ShoppingList.push(this.datalist[i]);
+      }
+    }
+    this.$store.commit("SaveToShoppingCar",ShoppingList);
     this.$store.commit("nowplayListMutation",this.datalist);
-    this.$store.state.Nowtotal = this.total;
-    this.$store.state.NowCurrent = this.current;
+    this.$store.commit("NowTotalSave",this.total);
+    this.$store.commit("NowCurrentSave",this.current);
+    // 规范一下vuex
+    // this.$store.state.Nowtotal = this.total;
+    // this.$store.state.NowCurrent = this.current;
   },
   methods:{
     handleClick(id,name,nation,category,synopsis,poster,actors){
@@ -127,6 +132,8 @@
           this.datalist[i].index = i;
           this.datalist[i].isbuy = false;
           this.datalist[i].buynum = 1;
+          this.datalist[i].price = Math.floor(Math.random()*10 + 25);
+          this.datalist[i].isSelect = true;
         }
       console.log(this.datalist)
       this.loading = false;
@@ -135,9 +142,16 @@
     },
     handleChange(index){
       this.datalist[index].buynum = this.num[index];
-      console.log(this.datalist)
+      if(this.datalist[index].buynum === 0){
+        this.datalist[index].isbuy = false;
+        this.datalist[index].buynum = 1;
+        // 强制更新
+        this.$forceUpdate();
+      }
+      console.log(this.datalist[index]);
     },
     buyTicket(index){
+      this.num[index] = this.datalist[index].buynum;
       this.datalist[index].isbuy = true;
       // 修改后强制更新组件
       this.$forceUpdate();

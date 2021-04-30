@@ -62,8 +62,11 @@
   },
   beforeDestroy(){
     this.$store.commit("comingListMutation",this.datalist);
-    this.$store.state.comingtotal = this.total;
-    this.$store.state.comingCurrent = this.current;
+    this.$store.commit("ComingotalSave",this.total)
+    this.$store.commit("ComingCurrentSave",this.current)
+    // 规范一下vuex
+    // this.$store.state.comingtotal = this.total;
+    // this.$store.state.comingCurrent = this.current;
   },
   methods:{
     handleClick(id,name,nation,category,synopsis,poster,actors){

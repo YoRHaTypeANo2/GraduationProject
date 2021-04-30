@@ -50,6 +50,25 @@ export default new Vuex.Store({
     comingListMutation(state,data){
       state.comingList = data
     },
+    // 存NowTotal
+    NowTotalSave(state,data){
+      state.Nowtotal = data
+    },
+    // 存NowCurrent
+    NowCurrentSave(state,data){
+      state.NowCurrent = data
+    },
+    // 存ComingTotal
+    ComingTotalSave(state,data){
+      state.Comingtotal = data
+    },
+    // 存ComingCurrent
+    ComingCurrentSave(state,data){
+      state.ComingCurrent = data
+    },
+    SaveToShoppingCar(state,data){
+      state.ShoppingList = data
+    },
     // 购物车添加
     ShoppingListAdd(state,data){
       // 原购物车内容
