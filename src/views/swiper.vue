@@ -1,12 +1,10 @@
 <template>
-
   <div class="swiper-container filmswiper">
     <div class="swiper-wrapper">
       <slot></slot>
     </div>
    <div class="swiper-pagination"></div>
  </div>
-
 </template>
 
 <script>

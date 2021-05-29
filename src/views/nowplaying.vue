@@ -26,6 +26,9 @@
   import { Indicator } from 'mint-ui'
 
     Vue.filter("actorfilter",function(data){
+      if(data === undefined){
+        return '未知'
+      }
         let newlist = data.map(item=>item.name);
         return newlist.join(' ');
     })
@@ -72,6 +75,10 @@
     }else{
       console.log("读取缓存数据");
       this.datalist = this.$store.state.nowplayList;
+      // this.datalist.forEach((item,index)=>{
+      //   console.log("电影名",item.name)
+      //   console.log("电影票价",item.price)
+      // })
       this.total =  this.$store.state.Nowtotal;
       this.current = this.$store.state.NowCurrent;
       // 根据total定义数据的indexlength
@@ -171,6 +178,7 @@ ul li img{
 
 }
 ul li{
+  list-style: none;
   overflow: hidden;
   padding: 10px;
 }

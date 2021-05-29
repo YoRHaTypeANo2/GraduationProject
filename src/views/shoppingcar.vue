@@ -101,7 +101,6 @@
       fillterBuy(select){
         let NEWindex = 0;
         if(select === true){
-
         }else{
         for(let i = 0; i < this.AllDataList.length; i++){
           if(this.AllDataList[i].isbuy === true){

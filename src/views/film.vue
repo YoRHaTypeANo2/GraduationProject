@@ -27,7 +27,6 @@ import swiper from './swiper'
 export default{
     components:{
       swiper
-
     },
     data(){
       return{

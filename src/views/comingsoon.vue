@@ -22,7 +22,11 @@
   import Vue from 'vue'
   import { Indicator } from 'mint-ui'
 
-    Vue.filter("actorfilter",function(data){
+     Vue.filter("actorfilter",function(data){
+       if(data === undefined){
+         return '未知'
+       }
+        console.log(data)
         let newlist = data.map(item=>item.name);
         return newlist.join(' ');
     })
@@ -62,7 +66,7 @@
   },
   beforeDestroy(){
     this.$store.commit("comingListMutation",this.datalist);
-    this.$store.commit("ComingotalSave",this.total)
+    this.$store.commit("ComingTotalSave",this.total)
     this.$store.commit("ComingCurrentSave",this.current)
     // 规范一下vuex
     // this.$store.state.comingtotal = this.total;
@@ -117,6 +121,7 @@ ul li img{
 
 }
 ul li{
+  list-style: none;
   overflow: hidden;
   padding: 10px;
 }
