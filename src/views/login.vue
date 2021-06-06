@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="logdiv">
-    <el-button type="info"  center=true @click="open">未登录，请先登录</el-button>
+    <el-button type="info"  center=true @click="open" style="background-color:#409eff;">未登录，请先登录</el-button>
     </div>
   </div>
 

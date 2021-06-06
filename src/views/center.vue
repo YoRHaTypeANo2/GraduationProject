@@ -1,6 +1,6 @@
 <template>
-  <div>
-    Center页面
+  <div style="text-align:center; margin-top:200px;">
+    个人中心
   </div>
 
 </template>

@@ -127,9 +127,11 @@ ul li{
 }
 .grade,.grade2{
   font-size: 14px;
+  color: #797d82;
 }
 .actor{
   font-size: 12px;
+  color: #797d82;
 }
 .buybutton{
   float: right;

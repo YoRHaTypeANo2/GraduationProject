@@ -2,7 +2,7 @@
   <div class="filmContainer" id="filmContainer">
     <div class="roll">
         <swiper ref="myswiper" class="swiper">
-            <div  class="swiper-slide" v-for="data in datalist" :key="data">{{data}}
+            <div  class="swiper-slide" v-for="data in datalist" :key="data"><img :src="data"/>
             </div>
         </swiper>
     </div>
@@ -30,7 +30,7 @@ export default{
     },
     data(){
       return{
-        datalist:["卖座网站现在没有轮播了","所以做一个静态文件","随便看看","就好了"],
+        datalist:["https://pic.maizuo.com/usr/movie/1c6eb83cf6db66388e32f3af2aae3324.jpg?x-oss-process=image/quality,Q_70","https://pic.maizuo.com/usr/movie/4d36a39bc82a763a57b3db377ab5cda5.jpg?x-oss-process=image/quality,Q_70","https://pic.maizuo.com/usr/movie/67bba86581801acc4d3a9f0765db3afc.jpg","https://pic.maizuo.com/usr/movie/2dc58177bcbcc47e58cd37bdb101f14d.jpg"],
         myswiper:[],
         IsFixed:true
       };
@@ -95,8 +95,11 @@ export default{
   button{
     flex: 1;
     height: 40px;
-    background-color: white;
+    background-color: #409EFF;
     outline: none;
+  }
+  .myactive{
+    background-color: white;
   }
   @keyframes fadein{
     0%{

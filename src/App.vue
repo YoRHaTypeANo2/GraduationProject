@@ -6,16 +6,16 @@
     <ul>
     <router-link to="/home" tag="button" active-class="myactive">
       <i class="el-icon-s-shop"></i>
-      home</router-link>
+      影院</router-link>
     <router-link to="/film" tag="button" active-class="myactive">
       <i class="el-icon-video-camera-solid"></i>
-      film</router-link>
+      电影</router-link>
     <router-link to="/shoppingcar" tag="button" active-class="myactive">
       <i class="el-icon-s-goods"></i>
-      card</router-link>
+      购物车</router-link>
     <router-link to="/center" tag="button" active-class="myactive">
       <i class="el-icon-user-solid"></i>
-      center</router-link>
+      个人中心</router-link>
     </ul>
     </div>
     <router-view></router-view>
@@ -103,9 +103,10 @@ ul li,button{
   text-align: center;
   outline: none;
   border-left: none;
+  background-color: #409EFF;
 }
 .myactive{
-    background-color: gray;
+    background-color: white;
 }
 </style>
 

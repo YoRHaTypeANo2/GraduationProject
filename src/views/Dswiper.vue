@@ -1,5 +1,4 @@
 <template>
-
   <div class="swiper-container Detailswiper">
     <div class="swiper-wrapper">
       <slot></slot>

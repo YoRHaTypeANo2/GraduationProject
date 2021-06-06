@@ -6,11 +6,11 @@
      infinite-scroll-immediate-check = false>
       <li v-for="data in datalist" :key="data.index">
         <img :src="data.poster" @click="handleClick(data.filmId,data.name,data.nation,data.category,data.synopsis,data.poster,data.actors)"/>
-        <h3>{{data.name}}</h3>
-        <p class="grade" v-if="data.grade">观众评分:{{data.grade}}</p>
+        <h3 style="color: #409eff;">{{data.name}}</h3>
+        <p class="grade" v-if="data.grade">观众评分: <span>{{data.grade}}</span></p>
         <p v-else class="grade2">暂无评分</p>
-        <p class="actor">主演:{{data.actors | actorfilter}}</p>
-        <p class="actor">价格:{{data.price}}</p>
+        <p class="actor">主演: <span>{{data.actors | actorfilter}}</span></p>
+        <p class="actor">价格: <span>{{data.price}}</span></p>
         <el-button v-if="!data.isbuy"  type="primary" class="buybutton" size="mini" @click="buyTicket(data.index)" round>购票</el-button>
         <el-input-number v-if="data.isbuy" v-model="num[data.index]" class="inputNum"  @change="handleChange(data.index)" :min="0" :max="50"></el-input-number>
       </li>
@@ -184,9 +184,11 @@ ul li{
 }
 .grade,.grade2{
   font-size: 14px;
+  color: #409eff;
 }
 .actor{
   font-size: 12px;
+  color: #409eff;
 }
 .buybutton{
   float: right;

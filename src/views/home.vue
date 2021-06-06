@@ -1,13 +1,14 @@
 <template>
   <div>
-    <h2 class="cinemas"><router-link to="/city">{{cityname}}</router-link>影院</h2>
+    <router-link tag="button" to="/city" class="CityTag">{{cityname? cityname:'未定位'}}</router-link>
+    <h2 class="cinemas">影院</h2>
     <div class="cinema"  :style="mystyle">
-      <el-button type="info" center=true v-if="UnLoc" @click="SelectCity()">未定位城市，请先选择</el-button> 
-      <ul v-if="datalist">
-        <li  v-for="data in datalist" :key="data.cinemaId">
+      <el-button type="info" center=true v-if="UnLoc" @click="SelectCity" style="background-color:#409eff;">未定位城市，请先选择</el-button> 
+      <ul v-if="datalist" style="margin-top:20px;">
+        <li  v-for="data in datalist" :key="data.cinemaId" style="border: 1px solid #409eff;">
           <p style="font-size: 20px;">{{data.name}}</p>
-          <p style="font-size: 20px;">联系电话：{{data.phone? data.phone:'暂无'}}</p>
-          <p style="font-size: 15px;">地址：{{data.address}}</p>
+          <p style="font-size: 16px; color:gray;">联系电话：{{data.phone? data.phone:'暂无'}}</p>
+          <p style="font-size: 15px; color:gray;">地址：{{data.address}}</p>
         </li>
       </ul>
     </div>
@@ -84,7 +85,7 @@
           }, 300);
           let id = localStorage.getItem("cityId");
           if(!id){
-            id = 430100
+            id = 370100
           }
           axios({
             url:`https://m.maizuo.com/gateway?cityId=${id}&ticketFlag=1&k=4449341`,
@@ -121,6 +122,9 @@
         }
       })
     },
+    SelectCity(){
+      this.$router.push('/city')
+    }
   }
 };
 </script>
@@ -131,7 +135,9 @@
   padding: 0px;
 }
 .cinemas{
+  margin-top: 10px;
   text-align: center;
+  color:#409eff;
 }
 .el-button{
   width: 50%;
@@ -149,6 +155,16 @@ ul li{
   padding: 20px;
   padding-left: 0;
   left: 0;
+}
+.CityTag{
+  margin-top: -5px;
+  width: 70px;
+  height: 30px;
+  position: absolute;
+  background-color: #409eff;
+  color: white;
+  text-decoration: none;
+  border-radius: 40px;
 }
 </style>
 

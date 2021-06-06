@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="ShoppingCarTitle">购物车</h1>
+    <h1 class="ShoppingCarTitle" style="margin-bottom:20px;">购物车</h1>
     <div class="ShoppingDiv">
     <ul class="ShoppingCarContainer">
       <li v-for="data in datalist" :key="data.newindex" style="list-style:none">
@@ -168,6 +168,7 @@ ul li{
 }
 .ShoppingCarTitle{
   text-align: center;
+  color: #409eff;
 }
 .ShoppingDiv{
   display: flex;
@@ -193,7 +194,7 @@ ul li{
   z-index: 999;
   width: 100%;
   height: 50px;
-  background-color: gray;
+  background-color: #409EFF;
 }
 .AllSelect{
   margin-left: 20px;
