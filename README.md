@@ -1,7 +1,9 @@
 # daq的毕设demo
 
 > working...
-> 完成度85%
+> 完成度100%
+> 答辩已过
+
 
 ## Build Setup
 
