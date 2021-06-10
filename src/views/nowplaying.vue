@@ -11,7 +11,7 @@
         <p v-else class="grade2">暂无评分</p>
         <p class="actor">主演: <span>{{data.actors | actorfilter}}</span></p>
         <p class="actor">价格: <span>{{data.price}}</span></p>
-        <el-button v-if="!data.isbuy"  type="primary" class="buybutton" size="mini" @click="buyTicket(data.index)" round>购票</el-button>
+        <el-button v-if="!data.isbuy"  type="primary" class="buybutton" size="mini" @click="buyTicket(data.index)" round>加入购物车</el-button>
         <el-input-number v-if="data.isbuy" v-model="num[data.index]" class="inputNum"  @change="handleChange(data.index)" :min="0" :max="50"></el-input-number>
       </li>
     </ul>

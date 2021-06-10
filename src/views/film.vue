@@ -11,11 +11,11 @@
       <div class='film-header'>
           <router-link to="/film/now-playing" tag="button" active-class="myactive">
               <i class="el-icon-video-play"></i>
-                now-playing
+                当前热映
           </router-link>
           <router-link to="/film/coming-soon" tag="button" active-class="myactive">
         <i class="el-icon-date"></i>
-                coming-soon
+                即将上映
           </router-link>
       </div>
     <router-view></router-view>
